@@ -1,0 +1,20 @@
+<h1 class="text-center">Leaderboard</h1>
+</br>
+
+<table width="100%" class="table">
+	<tr>
+		<th>avatar</th>
+		<th>Name</th>
+		<th>coins</th>
+	</tr>
+	{{#each profile}}
+	{{#if this.private}}
+	{{else}}
+	<tr>
+		<td>{{this.avatar}}</td>
+		<td>{{this.name}} {{this.lastName}}</td>
+		<td>{{this.coins}}</td>
+	</tr>
+	{{/if}}
+	{{/each}}
+</table>

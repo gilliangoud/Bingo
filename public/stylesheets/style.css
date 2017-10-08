@@ -1,0 +1,130 @@
+@font-face {
+	font-family: brandonBlack;
+	src: url("./fonts/Brandon Grotesque Black.otf");
+}
+
+@font-face {
+	font-family: brandonRegular;
+	src: url("./fonts/Brandon Grotesque Regular.otf");
+}
+
+@font-face {
+	font-family: brandonRegularItalic;
+	src: url("./fonts/Brandon Grotesque Regular Italic.otf");
+}
+
+@font-face {
+	font-family: brandonLight;
+	src: url("./fonts/Brandon Grotesque Light.otf");
+}
+
+@font-face {
+	font-family: volvo;
+	src: url("./fonts/VolvoBroadPro.otf");
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	background-color: #FFF;
+	user-select: none;
+	margin: 0;
+}
+footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	opacity: 0.5;
+	margin-top: 50px;
+	text-align: center;
+}
+
+footer>img {
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+footer>p {
+	font-family: brandonRegular;
+	font-size: 16px;
+	margin: 0;
+	margin-bottom: 20px;
+}
+
+footer>.line {
+	width: 200px;
+	height: 1px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 25px;
+	display: -webkit-inline-box;
+}
+content {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	max-width: 1200px;
+	padding: 50px 0 50px 0;
+}
+header {
+	width: 100%;
+	height: auto;
+	display: flex!important;
+	margin-top: 20px;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+}
+#header {
+	cursor: default;
+}
+nav {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+
+nav>a {
+	margin: 0 10px;
+	padding: 5px 10px 5px 10px;
+	font-family: brandonRegular;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: all 0.2s ease;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+nav>a:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+	color: rgba(0, 0, 0, 0.5);
+	text-decoration: none;
+}
+
+nav>a:active {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.logoCont {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 25px;
+	height: 25px;
+	font-family: brandonRegular;
+}
+
+.logoCont>img {
+	height: 25px;
+	margin-right: 25px;
+}
+
+.list-group-item {
+    margin-bottom: 20px;
+}
+.list-group-item.disabled, .list-group-item:disabled {
+	cursor: not-allowed;
+}

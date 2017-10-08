@@ -1,0 +1,53 @@
+<h1 class="text-center">this is the profile page</h1>
+</br>
+
+<table width="100%" class="table">
+		<tr>
+			<th>Id</th>
+			<td>{{profile.id}}</td>
+		</tr>
+		<tr>
+			<th>Username</th>
+			<td>{{profile.username}}</td>
+		</tr>
+		<tr>
+			<th>Name</th>
+			<td>{{profile.name}} {{profile.lastName}}</td>
+		</tr>
+		<tr>
+			<th>email</th>
+			<td>{{profile.email}}</td>
+		</tr>
+		<tr>
+			<th>phone</th>
+			<td>{{profile.phone}}</td>
+		</tr>
+		<tr>
+			<th>gender</th>
+			<td>{{profile.gender}}</td>
+		</tr>
+		<tr>
+			<th>age</th>
+			<td>{{profile.age}}</td>
+		</tr>
+		<tr>
+			<th>coins</th>
+			<td>{{profile.coins}}</td>
+		</tr>
+		<tr>
+			<th>isAdmin</th>
+			<td>{{profile.isAdmin}}</td>
+		</tr>
+		<tr>
+			<th>avatar</th>
+			<td>{{profile.avatar}}</td>
+		</tr>
+		<tr>
+			<th>is private profile</th>
+			<th>{{profile.isPrivate}}</th>
+		</tr>
+</table>
+
+
+<a href="/signout" class="more">signout</a>
+<a href="/profile/edit" class="more">edit</a>

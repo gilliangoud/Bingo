@@ -1,0 +1,21 @@
+<header>
+	<div class="logoCont">
+		<h1 id="header" class="taglineHead">{{title}}</h1>
+	</div>
+	<nav>
+		{{#if user.isAdmin}}
+		<a href="/users">Users</a>
+		<a href="/tables">Tables</a>
+		{{/if}}
+		{{#if isAuthenticated}}
+		<a href="/home">Game Rooms</a>
+		<a href="/profile">{{user.username}}</a>
+		<a href="/leaderboard">Top 10</a>
+		<a href="/signout">Sign-out</a>
+		{{else}}
+		<a href="/">Login</a>
+		<a href="/signup">Register</a>
+		<a href="/leaderboard">Top players</a>
+		{{/if}}
+	</nav>
+</header>

@@ -1,0 +1,73 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/game.js"></script>
+<style>
+#messages { list-style-type: none; margin: 0; padding: 0; height: 200px; overflow: auto; margin-top: 50px; border: 1px solid;}
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }
+</style>
+
+<div id="roomPage">
+<h1 class="taglineHead">Game Rooms <span id="onlineUserCount"></span></h1></br>
+	<div data-role="content">
+		<div class="list-group" id="roomList">
+		</div>
+	</div><!-- /content --> 
+   
+</div><!-- /page -->
+
+<div id="gamePage">
+	<div data-role="content">
+		<h3><span id="gameFinishedSpan"><span></h3>
+		<br/>	
+		<h3><span id="chosenNumberSpan"></span></h3>
+		<br/>
+		<div class="ui-grid-a">
+			<table id="newspaper-a">
+				<tr>
+					<td class="1_row_1_column"></td>
+					<td class="1_row_2_column"></td>
+					<td class="1_row_3_column"></td>
+					<td class="1_row_4_column"></td>
+					<td class="1_row_5_column"></td>
+					<td class="1_row_6_column"></td>
+					<td class="1_row_7_column"></td>
+					<td class="1_row_8_column"></td>
+					<td class="1_row_9_column"></td>
+				</tr>
+				<tr>
+					<td class="2_row_1_column"></td>
+					<td class="2_row_2_column"></td>
+					<td class="2_row_3_column"></td>
+					<td class="2_row_4_column"></td>
+					<td class="2_row_5_column"></td>
+					<td class="2_row_6_column"></td>
+					<td class="2_row_7_column"></td>
+					<td class="2_row_8_column"></td>
+					<td class="2_row_9_column"></td>
+				</tr>
+				<tr>
+					<td class="3_row_1_column"></td>
+					<td class="3_row_2_column"></td>
+					<td class="3_row_3_column"></td>
+					<td class="3_row_4_column"></td>
+					<td class="3_row_5_column"></td>
+					<td class="3_row_6_column"></td>
+					<td class="3_row_7_column"></td>
+					<td class="3_row_8_column"></td>
+					<td class="3_row_9_column"></td>
+				</tr>
+			</table>
+		</div><!-- /grid-a -->
+	</div><!-- /content -->
+	<a href="#" class="backToRoomPage">Leave Game</a><br>
+
+	players in here
+	<ul id="playersIn"></ul>
+
+</div><!-- /page -->
+
+
+<ul id="messages"></ul>
+	<form action="">
+	    <input id="m" autocomplete="off" /><button>Send</button>
+	</form>

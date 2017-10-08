@@ -1,0 +1,155 @@
+<h1 class="text-center">this is the profile page</h1>
+</br>
+
+<!-- List group -->
+<div class="list-group" id="myList" role="tablist">
+  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#all" role="tab">All users</a>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="#banned" role="tab">Banned users</a>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="#admins" role="tab">Admins</a>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  	<div class="tab-pane active" id="all" role="tabpanel">
+		<table width="100%" class="table">
+			<tr>
+				<th>Username</th>
+				<th>Name</th>
+				<th>email</th>
+				<th>phone</th>
+				<th>gender</th>
+				<th>age</th>
+				<th>coins</th>
+				<th>isAdmin</th>
+				<th>avatar</th>
+				<th>is private profile</th>
+				<th>banned</th>
+				<th></th>
+				<th></th>
+			</tr>
+			{{#each profile}}
+			<tr {{#if this.isBanned}}class="table-dark"{{/if}}{{#if this.isAdmin}}class="table-primary"{{/if}}>
+				<td>{{this.username}}</td>
+				<td>{{this.name}} {{this.lastName}}</td>
+				<td>{{this.email}}</td>
+				<td>{{this.phone}}</td>
+				<td>{{this.gender}}</td>
+				<td>{{this.age}}</td>
+				<td>{{this.coins}}</td>
+				<td>{{this.isAdmin}}</td>
+				<td>{{this.avatar}}</td>
+				<td>{{this.private}}</td>
+				<td>{{this.isBanned}}</td>
+				<td>
+					<form method="POST" action="/users/ban/{{this.id}}">
+						<button type="submit" class="btn btn-primary">{{#if this.isBanned}}unban{{else}}ban  {{/if}}</button>
+					</form>
+				</td>
+				<td>
+					<a href="/users/{{this.id}}" type="submit" class="btn btn-primary">edit</a>
+				</td>
+				<td>
+					<form method="POST" action="/users/reset/{{this.id}}">
+					<button type="submit" class="btn btn-primary">reset</button>
+					</form>
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+  	<div class="tab-pane fade" id="admins" role="tabpanel">
+  		<table width="100%" class="table">
+			<tr>
+				<th>Username</th>
+				<th>Name</th>
+				<th>email</th>
+				<th>phone</th>
+				<th>gender</th>
+				<th>age</th>
+				<th>coins</th>
+				<th>isAdmin</th>
+				<th>avatar</th>
+				<th>is private profile</th>
+				<th>banned</th>
+			</tr>
+			{{#each profile}}
+			{{#if this.isAdmin}}
+			<tr {{#if this.isBanned}}class="table-dark"{{/if}}{{#if this.isAdmin}}class="table-primary"{{/if}}>
+				<td>{{this.username}}</td>
+				<td>{{this.name}} {{this.lastName}}</td>
+				<td>{{this.email}}</td>
+				<td>{{this.phone}}</td>
+				<td>{{this.gender}}</td>
+				<td>{{this.age}}</td>
+				<td>{{this.coins}}</td>
+				<td>{{this.isAdmin}}</td>
+				<td>{{this.avatar}}</td>
+				<td>{{this.private}}</td>
+				<td>{{this.isBanned}}</td>
+				<td>
+					<form method="POST" action="/users/ban/{{this.id}}">
+						<button type="submit" class="btn btn-primary">{{#if this.isBanned}}unban{{else}}ban  {{/if}}</button>
+					</form>
+				</td>
+				<td>
+					<a href="/users/{{this.id}}" type="submit" class="btn btn-primary">edit</a>
+				</td>
+				<td>
+					<form method="POST" action="/users/reset/{{this.id}}">
+					<button type="submit" class="btn btn-primary">reset</button>
+					</form>
+				</td>
+			</tr>
+			{{/if}}
+			{{/each}}
+		</table>  		
+  	</div>
+  	<div class="tab-pane fade" id="banned" role="tabpanel">
+  		<table width="100%" class="table">
+			<tr>
+				<th>Username</th>
+				<th>Name</th>
+				<th>email</th>
+				<th>phone</th>
+				<th>gender</th>
+				<th>age</th>
+				<th>coins</th>
+				<th>isAdmin</th>
+				<th>avatar</th>
+				<th>is private profile</th>
+				<th>banned</th>
+			</tr>
+			{{#each profile}}
+			{{#if this.isBanned}}
+			<tr {{#if this.isBanned}}class="table-dark"{{/if}}{{#if this.isAdmin}}class="table-primary"{{/if}}>
+				<td>{{this.username}}</td>
+				<td>{{this.name}} {{this.lastName}}</td>
+				<td>{{this.email}}</td>
+				<td>{{this.phone}}</td>
+				<td>{{this.gender}}</td>
+				<td>{{this.age}}</td>
+				<td>{{this.coins}}</td>
+				<td>{{this.isAdmin}}</td>
+				<td>{{this.avatar}}</td>
+				<td>{{this.private}}</td>
+				<td>{{this.isBanned}}</td>
+				<td>
+					<form method="POST" action="/users/ban/{{this.id}}">
+						<button type="submit" class="btn btn-primary">{{#if this.isBanned}}unban{{else}}ban  {{/if}}</button>
+					</form>
+				</td>
+				<td>
+					<a href="/users/{{this.id}}" type="submit" class="btn btn-primary">edit</a>
+				</td>
+				<td>
+					<form method="POST" action="/users/reset/{{this.id}}">
+					<button type="submit" class="btn btn-primary">reset</button>
+					</form>
+				</td>
+			</tr>
+			{{/if}}
+			{{/each}}
+		</table>  		
+  	</div>
+</div>
+<a href="/users/create" class="btn btn-primary">New user</a>

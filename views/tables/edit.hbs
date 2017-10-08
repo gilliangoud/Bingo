@@ -1,0 +1,90 @@
+<h1>Table details</h1></br>
+<table width="100%" class="table">
+<form method="POST" action="/tables/update/{{content.id}}">
+	<tr>
+		<th>Name</th>
+		<td><input name="tableName" class="form-control form-control-sm" type="text" value="{{content.tableName}}"></td>
+	</tr>
+	<tr>
+		<th>Assigned to room</th>
+		<td>
+			<select class="form-control form-control-sm" name="room">
+		      <option>home</option>
+		      <option>non-existent</option>
+		    </select>
+		</td>
+	</tr>
+	<tr>
+		<th>available</th>
+		<td>
+			<label class="form-check-label">
+    			<input class="form-check-input" type="checkbox" name="available" value="available" 
+    			{{#if content.state}}checked{{/if}}>
+  			</label>
+  		</td>
+	</tr>
+	<tr>
+		<th>playerlimit</th>
+		<td><input name="playerLimit" class="form-control form-control-sm" type="number" value="{{content.playerLimit}}"></td>
+	</tr>
+	<tr>
+		<th>Opens at</th>
+		<td><input class="form-control form-control-sm" name="openHour" type="number" value="{{content.openHour}}"></td>
+	</tr>
+	<tr>
+		<th>closes at</th>
+		<td><input class="form-control form-control-sm" name="closeHour" type="number" value="{{content.closeHour}}"></td>
+	</tr>
+	<tr>
+		<th>days open</th>
+		<td>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="monday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="monday" value="true" {{#if content.dayOpen.monday}}checked{{/if}}> monday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="tuesday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="tuesday" value="true" {{#if content.dayOpen.tuesday}}checked{{/if}}> tuesday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="wednesday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="wednesday" value="true" {{#if content.dayOpen.wednesday}}checked{{/if}}> wednesday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="thursday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="thursday" value="true" {{#if content.dayOpen.thurday}}checked{{/if}}> thursday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="friday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="friday" value="true" {{#if content.dayOpen.friday}}checked{{/if}}> friday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="saturday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="saturday" value="true" {{#if content.dayOpen.saturday}}checked{{/if}}> saturday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="sunday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="sunday" value="true" {{#if content.dayOpen.sunday}}checked{{/if}}> sunday
+			  </label>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th><button type="reset" class="btn btn-primary">reset</button></th>
+		<th><button type="submit" class="btn btn-primary">Update table</button></th>
+	</tr>
+</form>
+</table>

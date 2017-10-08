@@ -1,0 +1,26 @@
+<h1 class='more'>Welcome to {{title}}</h1>
+
+	<h1 class="text-center">Create your account</h1>
+	<div class="loginForm">
+		<img class="loginForm" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120">
+		<form class="quotes" action="/signup" method="POST">
+			<input type="text" name="username" class="textField" placeholder="Username" required="true" autofocus="true"></br>
+			<input type="password" name="password" class="textField" placeholder="Password" required="true"></br>
+			<input type="text" name="firstName" class="textField" placeholder="Name" required="true"></br>
+			<input type="text" name="lastName" class="textField" placeholder="Last name" required="true"></br>
+			<input type="email" name="email" class="textField" placeholder="E-mail" required="true"></br>
+			<input type="text" name="phone" class="textField" placeholder="Phone nr." required="true"></br>
+			<input type="radio" name="gender" value="male"> Male</br>
+  			<input type="radio" name="gender" value="female"> Female</br>
+  			<input type="radio" name="gender" value="other"> Other</br>
+			<input type="number" min="1" name="coins" class="textField" placeholder="Coins" required="true"></br>
+			<input type="radio" name="isAdmin" value="true"> true<br>
+  			<input type="radio" name="isAdmin" value="false"> false<br>
+			<div class="dot"></div></br>
+			<button class="buttonGray" type="submit"> Sign up </button>
+			<span class="clearfix"></span>
+		</form>
+	</div>
+</br>
+	<a href="/" class="text-center">Already have an account? Sign in</a>
+	<h1 class="text-center.error-message">{{message}}</h1>

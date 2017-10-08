@@ -1,0 +1,214 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('bingo:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+
+var io = require('socket.io')(server);
+var Game = require('../gamemodels/game.js');
+var Player = require('../gamemodels/player.js');
+var Table = require('../gamemodels/table.js');
+var Utility = require('../gamemodels/utility.js');
+var Room = require('../gamemodels/room.js');
+var utility = new Utility();
+var room = new Room("Home");
+room.tables = utility.loadTables("Home");
+
+io.on('connection', function(socket){
+  socket.emit('userOnline');
+  room.tables = utility.loadTables("Home"); 
+
+  socket.on('connectToServer',function(data){
+    var alreadyInGame = false;
+
+    for(var i = 0; i < room.players.length; i++){
+      if(room.players[i].pID == data.id){
+        console.log('double connection from: ' + data.username);
+        alreadyInGame = true;
+      }
+    }
+
+    if(alreadyInGame == false){
+      console.log("client connected: " + data.username + " " + data.id);
+      //Add player to the room
+      var player = new Player(socket.id);
+      player.setPID(data.id);
+      player.setName(data.username);
+      player.status = "available";
+      room.addPlayer(player);
+      //Send Other Players that new player has connected
+      utility.sendEventToAllPlayersButPlayer('newUserOnline', {message:"Player is online: ",username:data.username},io,room.players,player);
+      utility.sendEventToAllPlayers('tableList', {tableList: room.getTableMessage(),playerCount:room.players.length},io,room.players);
+    }
+  });
+
+  socket.on('connectToTable',function(data){
+    var player = room.getPlayer(socket.id);
+    var table = room.getTable(data.tableID);
+    if(table.isTableAvailable() && table.addPlayer(player)){
+      player.tableID = table.id;
+      player.status = 'inTable';
+      let playernames = [];
+      for (var i = table.players.length - 1; i >= 0; i--) {
+        playernames[i] = table.players[i].name;
+      }
+      utility.sendEventToTable('userConnectedToTable',{message:" joined",  username: player.getName(), players: playernames },io,table);
+      utility.sendEventToAllPlayers('tableList',{tableList: room.getTableMessage(),playerCount:room.players.length},io,room.players);
+      socket.emit('connectedToTable');
+      if(table.isPlaying()){
+        //Now table starts playing
+        utility.sendEventToTable('gameStarted',{tableList: room.getTableMessage()},io,table);
+        table.gameObj.startGame(utility,io,table);
+      }
+    }
+    else{
+      socket.emit('errorEvent',{errorNo:100, message: "The table is full!!!"});
+    }
+  });
+
+  socket.on('sendChatMessage',function(data){
+    var player = room.getPlayer(socket.id);
+    if(player.tableID == ""){
+      //Send Message to the Available Players
+      utility.sendEventToAllFreePlayers('userSendChatMessage',
+        {username:player.name,message:data.message},io,room.players);
+    }
+    else
+    {
+      //Send Message to the same Table Players
+      console.log("sending message to table");
+      var table = room.getTable(player.tableID);
+      utility.sendEventToTable('userSendChatMessage',
+        {username:player.name,message:data.message},io,table);
+    }
+  });
+
+  socket.on('userLeaveFromTable',function(data){
+    //Check if the user is in table
+    var player = room.getPlayer(socket.id);
+    if(player.tableID != ""){
+      var table = room.getTable(player.tableID);
+      table.removePlayer(player);
+      let playernames = [];
+      for (var i = table.players.length - 1; i >= 0; i--) {
+        playernames[i] = table.players[i].name;
+      }
+      utility.sendEventToTable('userDisconnectedFromTable',
+        {username:player.name, message: ' left', players: playernames},io,table);
+      utility.sendEventToAllFreePlayersButPlayer('userDisconnectedFromTable',{
+        username:player.name},io,room.players,player);
+      socket.emit('playerDisconnectedFromTable',
+        {username:player.name});
+      utility.sendEventToAllPlayers('tableList',
+        {tableList: room.getTableMessage(),playerCount: room.players.length},io,room.players);
+      player.setTableID("");
+      player.setStatus("available");
+    }
+    else{
+      socket.emit('errorEvent',{errorNo:101, message: "You are not connected to table!!!"}); 
+    }
+  });
+
+  socket.on('disconnect', function(){
+    //Check player status whether she is in table or game
+    var player = room.getPlayer(socket.id);
+    if(player.status != "available"){
+      //Remove from table
+      var table = room.getTable(player.tableID);
+      table.removePlayer(player);
+    }
+    //Remove from room
+    room.removePlayer(player);
+    utility.sendEventToAllPlayersButPlayer('userDisconnectedFromGame',
+      {message:"Player is disconnected: ",username:player.name},io,room.players,player);
+    utility.sendEventToAllPlayers('tableList',
+      {tableList: room.getTableMessage(),playerCount: room.players.length},io,room.players);
+    console.log(player.name +' has disconnected');
+  });
+});
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

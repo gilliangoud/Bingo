@@ -1,0 +1,29 @@
+<table width="100%" class="table">
+	<tr>
+		<th>Name</th>
+		<th>Assigned to room</th>
+		<th>available</th>
+		<th>playerlimit</th>
+		<th>opens at</th>
+		<th>closes at</th>
+		<th>days open</th>
+	</tr>
+	{{#each content}}
+	<tr>
+		<td>{{this.tableName}}</td>
+		<td>{{this.room}}</td>
+		<td>{{this.state}}</td>
+		<td>{{this.playerLimit}}</td>
+		<td>{{this.openHour}}</td>
+		<td>{{this.closeHour}}</td>
+		<td>{{this.dayOpen}}</td>
+		<td><a href="/tables/{{this.id}}" class="btn btn-primary">Edit</a></td>
+		<td>
+			<form method="POST" action="/tables/delete/{{this.id}}">
+				<button type="submit" class="btn btn-primary">Delete</button>
+			</form>
+		</td>
+	</tr>
+	{{/each}}
+</table>
+<a href="/tables/create">New table</a>

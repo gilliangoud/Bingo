@@ -1,0 +1,88 @@
+<h1>New table</h1></br>
+<table width="100%" class="table">
+<form  method="POST" action="/tables/create">
+	<tr>
+		<th>Name</th>
+		<td><input class="form-control form-control-sm" name="tableName" type="text" placeholder="New table name"></td>
+	</tr>
+	<tr>
+		<th>Assigned to room</th>
+		<td>
+			<select class="form-control form-control-sm" name="room">
+		      <option>home</option>
+		      <option>non-existent</option>
+		    </select>
+		</td>
+	</tr>
+	<tr>
+		<th>available</th>
+		<td>
+			<label class="form-check-label">
+    			<input class="form-check-input" type="checkbox" name="available" value="available" checked>
+  			</label>
+		</td>
+	</tr>
+	<tr>
+		<th>playerlimit</th>
+		<td><input class="form-control form-control-sm" name="playerlimit" type="number" placeholder="Set the player limit"></td>
+	</tr>
+	<tr>
+		<th>Opens at</th>
+		<td><input class="form-control form-control-sm" name="openHour" type="number" value="0"></td>
+	</tr>
+	<tr>
+		<th>closes at</th>
+		<td><input class="form-control form-control-sm" name="closeHour" type="number" value="0"></td>
+	</tr>
+	<tr>
+		<th>days open</th>
+		<td>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="monday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="monday" value="true" > monday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="tuesday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="tuesday" value="true" > tuesday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="wednesday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="wednesday" value="true" > wednesday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="thursday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="thursday" value="true" > thursday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="friday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="friday" value="true" > friday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="saturday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="saturday" value="true" > saturday
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			  	<input type="hidden" name="sunday" value="false" >
+			    <input class="form-check-input" type="checkbox" name="sunday" value="true" > sunday
+			  </label>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th><button type="submit" class="btn btn-primary">Create table</button></th>
+	</tr>
+</form>
+</table>
